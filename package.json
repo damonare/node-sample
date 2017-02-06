@@ -1,0 +1,20 @@
+{
+  "name": "node-sample",
+  "version": "1.0.0",
+  "description": "A simple node application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damonare/node-sample.git"
+  },
+  "author": "damonare",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/damonare/node-sample/issues"
+  },
+  "homepage": "https://github.com/damonare/node-sample#readme"
+}
