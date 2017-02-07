@@ -1,8 +1,10 @@
-function route(handle, pathname, response, postData) {
+function route(handle, pathname, response, request) {
     if (typeof handle[pathname] === 'function') {
-        handle[pathname](response, postData);
+        handle[pathname](response, request);
     } else {
-        console.log("No request handler found for " + pathname);
+        // 发送 HTTP 头部
+	    // HTTP 状态值: 404 : Not found
+	    // 内容类型: text/plain
         response.writeHead(404, {
             "Content-Type": "text/plain"
         });

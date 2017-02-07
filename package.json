@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/damonare/node-sample/issues"
   },
-  "homepage": "https://github.com/damonare/node-sample#readme"
+  "homepage": "https://github.com/damonare/node-sample#readme",
+  "dependencies": {
+    "formidable": "^1.1.1"
+  }
 }

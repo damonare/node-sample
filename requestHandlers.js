@@ -11,13 +11,16 @@ querystring.stringify()序列化;
 querystring.parse()反序列化;
 querystring.escape()编码;
 querystring.unescape()解码;
+fs模块可对本地文件进行操作，也是node内置模块，具体方法可看官方文档
 */
 
-var querystring = require("querystring");
+var querystring = require("querystring"),
+    fs = require("fs"),
+    formidable = require("formidable");
 
 function start(response, postData) {
     console.log('Start!!!');
-    //尝试下列阻塞代码
+    //尝试下列阻塞代码，感受下阻塞和非阻塞的区别
     // function sleep(time){
     //     var startTime=new Date().getTime();
     //     while(new Date().getTime()<startTime+time);
@@ -40,13 +43,14 @@ function start(response, postData) {
 
     var body = '<html>' +
         '<head>' +
-        '<meta http-equiv="Content-Type" content="text/html; ' +
-        'charset=UTF-8" />' +
+        '<meta http-equiv="Content-Type" ' +
+        'content="text/html; charset=UTF-8" />' +
         '</head>' +
         '<body>' +
-        '<form action="/upload" method="post">' +
-        '<textarea name="text" rows="20" cols="60"></textarea>' +
-        '<input type="submit" value="Submit text" />' +
+        '<form action="/upload" enctype="multipart/form-data" ' +
+        'method="post">' +
+        '<input type="file" name="upload">' +
+        '<input type="submit" value="Upload file" />' +
         '</form>' +
         '</body>' +
         '</html>';
@@ -60,14 +64,52 @@ function start(response, postData) {
     response.end();
 }
 
-function upload(response, postData) {
-    console.log("Request handler 'upload' was called.");
-    response.writeHead(200, {
-        "Content-Type": "text/plain"
+function upload(response, request) {
+    var form = new formidable.IncomingForm();
+    console.log("About to parse");
+    form.parse(request, function(error, fields, files) {
+        /*
+        使用fs相关API将要上传的临时文件转变为本地文件，方便显示。
+        */
+        //返回一个新建的 ReadStream 对象
+        var readStream = fs.createReadStream(files.upload.path);
+        //返回一个新建的 WriteStream 对象
+        var writeStream = fs.createWriteStream("./1.jpg");
+        readStream.pipe(writeStream);
+        readStream.on('end', function() {
+            fs.unlinkSync(files.upload.path);
+        });
+        // 发送 HTTP 头部
+	    // HTTP 状态值: 200 : OK
+	    // 内容类型: text/html
+        response.writeHead(200, {
+            "Content-Type": "text/html"
+        });
+        response.write("received image:<br/>");
+        response.write("<img src='/show' />");
+        response.end();
     });
-    response.write("You've sent the text: " +
-        querystring.parse(postData).text);
-    response.end();
+}
+
+function show(response, postData) {
+    console.log("Request handler 'show' was called.");
+    //浏览器输入http://localhost:8888/show查看效果
+    fs.readFile("./1.jpg", "binary", function(error, file) {
+        if (error) {
+            response.writeHead(500, {
+                "Content-Type": "text/plain"
+            });
+            response.write(error + "\n");
+            response.end();
+        } else {
+            response.writeHead(200, {
+                "Content-Type": "image/jpg"
+            });
+            response.write(file, "binary");
+            response.end();
+        }
+    });
 }
 exports.start = start;
 exports.upload = upload;
+exports.show = show;
