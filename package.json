@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/damonare/node-sample#readme",
   "dependencies": {
-    "formidable": "^1.1.1"
+    "formidable": "^1.1.1",
+    "mongodb": "^2.2.22"
   }
 }

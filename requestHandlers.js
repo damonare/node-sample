@@ -17,6 +17,7 @@ fs模块可对本地文件进行操作，也是node内置模块，具体方法�
 var querystring = require("querystring"),
     fs = require("fs"),
     formidable = require("formidable");
+var database=require('./database');
 
 function start(response, postData) {
     console.log('Start!!!');
@@ -79,6 +80,7 @@ function upload(response, request) {
         readStream.on('end', function() {
             fs.unlinkSync(files.upload.path);
         });
+        database.insert('1.jpg',files.upload.path)
         // 发送 HTTP 头部
 	    // HTTP 状态值: 200 : OK
 	    // 内容类型: text/html
