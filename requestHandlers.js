@@ -12,11 +12,13 @@ querystring.parse()反序列化;
 querystring.escape()编码;
 querystring.unescape()解码;
 fs模块可对本地文件进行操作，也是node内置模块，具体方法可看官方文档
+formidable模块是Felix Geisendörfer开发的。它对解析上传的文件数据做了很好的抽象。
 */
 
 var querystring = require("querystring"),
     fs = require("fs"),
     formidable = require("formidable");
+//引入外部模块，数据库
 var database=require('./database');
 
 function start(response, postData) {
@@ -80,6 +82,7 @@ function upload(response, request) {
         readStream.on('end', function() {
             fs.unlinkSync(files.upload.path);
         });
+        //如果您没有安装mongodb数据库或是使用的其他数据库记得将下面这句注释
         database.insert('1.jpg',files.upload.path)
         // 发送 HTTP 头部
 	    // HTTP 状态值: 200 : OK

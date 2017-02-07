@@ -13,6 +13,7 @@ console.log("database is running")
 function insert(fileName,filePath) {
     db.open(function(err, db) {
         if (!err) {
+            //新建“表”pictures
             db.collection('pictures', function(err, collection) {
                 collection.insert({
                     filename: fileName,
