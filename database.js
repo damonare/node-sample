@@ -10,10 +10,12 @@ var db = new mongodb.Db('learn', server, {
 });
 console.log("database is running")
 
-function insert(fileName,filePath) {
+function insert(fileName, filePath) {
     db.open(function(err, db) {
         if (!err) {
-            //新建“表”pictures
+            /*
+            新建“表”pictures,这里仅为了演示node操作数据库的方式。因此只存储了文件名和文件路径。而且mongodb适合合保存JSON数据，不适合保存文件，可以考虑在JSON里面保存文件的路径名。如果实在需要把mongodb当成分布式文件系统，请用户GridFS
+            */
             db.collection('pictures', function(err, collection) {
                 collection.insert({
                     filename: fileName,
@@ -38,4 +40,4 @@ function insert(fileName,filePath) {
     });
 }
 
-exports.insert=insert;
+exports.insert = insert;
