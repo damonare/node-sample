@@ -24,15 +24,6 @@ function insert(fileName, filePath) {
                     console.log(docs);
                     db.close();
                 });
-                //数据库查询
-                // collection.find().toArray((err, docs) => {
-                //     if (err) {
-                //         throw err;
-                //     } else {
-                //         data = docs;
-                //         db.close();
-                //     }
-                // });
             })
         } else {
             console.log(err);
