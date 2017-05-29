@@ -6,6 +6,7 @@
   浏览器中显示出来)
 - 平时的部分测试代码
 - 充分添加注释，有没说清楚欢迎联系我jztan1996@gmail.com或是直接提issue
+- lib文件夹内为babel转码后的ES5代码，src为ES6语法版本
 
 **操作方法**
 
@@ -15,6 +16,3 @@ npm install
 //运行应用
 node index
 ```
-
-
-
