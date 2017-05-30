@@ -1,0 +1,15 @@
+html, body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+}
+body {
+    font-size: 62.5%;
+    color: #666;
+}
+div {
+    width: 50vw;
+    height: 50vw;
+    margin: 0 auto;
+    text-align: center;
+}
