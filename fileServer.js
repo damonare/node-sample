@@ -5,6 +5,8 @@ import path from 'path';
 import url from 'url';
 
 const workDir = path.resolve('.');
+const hostname = '127.0.0.1';
+const port = 4000;
 
 console.log('Static root dir: ' + workDir);
 //创建文件服务器
@@ -25,5 +27,6 @@ const server = http.createServer((request, response) => {
         }
     });
 });
-server.listen(4000);
-console.log('The Server is running at port:4000')
+server.listen(port, hostname, () => {
+    console.log('The Server is running at port:4000');
+});
