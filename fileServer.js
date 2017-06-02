@@ -3,6 +3,7 @@ import fs from 'fs';
 import http from 'http';
 import path from 'path';
 import url from 'url';
+import koa from 'koa';
 
 const workDir = path.resolve('.');
 const hostname = '127.0.0.1';
